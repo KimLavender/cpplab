@@ -6,37 +6,49 @@
 
 using namespace std;
 
-class Student {
+class Seller {
 public:
-    int number;
-    int score;
-
-    Student(int Number, int Score) : number(Number), score(Score) {}
-};
-
-Student student[5] = {
-        Student(001, 85),
-        Student(002, 93),
-        Student(003, 81),
-        Student(004, 79),
-        Student(005, 88)
-};
-
-Student max();
-
-
-int main(){
-    cout << "The greatest student's number is " << max().number << endl;
-}
-
-Student max(){
-    Student temp = student[0];
-    for(int i = 1; i <5; i++){
-        if(temp.score > student[i].score){
-            continue;
-        }
-        else {
-            temp = student[i]; }
+    Seller(int num, int quantity, float price) : num(num), quantity(quantity), price(price) {
+        n += quantity;
+        sum += price * quantity * changeDiscount();
     }
-    return temp;
+
+    int num;
+    int quantity;
+    static float sum;
+    static int n;
+
+    static float average() {
+        if (n != 0) {
+            return (sum / n);
+        } else return (-1);
+    }
+
+    static void display(){
+        cout << Seller::sum << endl;
+        cout << Seller::average() << endl;
+        cout << "Created by 20151120221李瑞瑜" << endl;
+    }
+
+    float changeDiscount() {
+        if (quantity >= 10) {
+            return 0.98;
+        } else { return 1; }
+    }
+
+private:
+    float price;
+    static float discount;
+};
+
+float Seller::sum = 0;
+int Seller::n = 0;
+
+int main() {
+    Seller seller1 = Seller(101, 5, 23.5);
+    Seller seller2 = Seller(102, 12, 24.56);
+    Seller seller3 = Seller(103, 100, 21.5);
+
+    Seller::display();
+    return 0;
 }
